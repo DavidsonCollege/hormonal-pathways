@@ -107,14 +107,14 @@ def run_script():
     index = request.json.get('index')
     data = request.json.get('base64')
     response = llava.run_analysis(index, data)
-    print(response)
+    #print(response)
     # Return some result
     return jsonify({"message": response})
     
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=4000)
 
 
 

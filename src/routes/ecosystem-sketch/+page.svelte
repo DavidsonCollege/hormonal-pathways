@@ -1,8 +1,3 @@
-<script>
-    import { json } from "@sveltejs/kit";
-    import { parse } from "svelte/compiler";
-</script>
-
 <svelte:head>
     <!-- link p5.js and its addons like p5.dom.js or p5.sound.js -->
     <script src="/p5.js" type="text/javascript"></script>

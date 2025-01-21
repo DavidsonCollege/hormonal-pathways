@@ -182,7 +182,7 @@ def fitness_function(beta, z, S, C, K, X_t, E_t1, gamma, delCS, Xmin, G):
 def convertToAverage(DataSet:list):
     confidenceInterval = [0] * len(DataSet)
     for i, row in enumerate(DataSet):
-        print(row)
+        #print(row)
         confidenceInterval[i] += 2 * np.std(row)
         DataSet[i] = np.average(row)
     

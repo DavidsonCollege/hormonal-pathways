@@ -1,6 +1,7 @@
 <script>
     import Modal from './Modal.svelte';
     import { chartDescriptions } from '../message_store.js';
+    import { apiEndpoint } from "../state_store.js";
 
     let showModal = false;
     let modalMessage = null;
@@ -9,7 +10,7 @@
     async function runLlavaScript(index, base64Data) {
         isLoading = true;
         try {
-            const response = await fetch('http://localhost:5000/llavaserver', {
+            const response = await fetch(`${apiEndpoint}/llavaserver`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

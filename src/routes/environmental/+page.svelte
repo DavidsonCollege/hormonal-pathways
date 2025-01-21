@@ -568,7 +568,7 @@
             height="590"
             src="{$rootURL}/ecosystem-sketch"
             id="iframeID"
-            title="YouTube video player"
+            title="Ecosystem Sketch"
             frameborder="0"
             class="rounded-iframe"
         ></iframe>

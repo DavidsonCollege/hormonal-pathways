@@ -2,6 +2,7 @@
   import axios from "axios";
   import { writable, get } from "svelte/store";
   import { onMount } from "svelte";
+  import { apiEndpoint } from "../state_store.js";
 
   let Xhist = [];
   let Shist = [];
@@ -32,8 +33,6 @@
 
   let gamma = writable([get(gamma1), get(gamma2), get(gamma3)]);
   let z = writable([get(z1), get(z2), get(z3)]);
-
-  const apiEndpoint = "http://127.0.0.1:5000";
 
   //state
   let initialRun = false;

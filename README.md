@@ -54,25 +54,15 @@ We extend our gratitude to:
 - Dr. Heyer, Stakeholder
 - NCShare Project Sponsors and Code+ Directors
 
-# create-svelte
+# Develop
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+## Dependencies
 
-## Creating a project
+Install dependencies with `npm install` (or `pnpm install` or `yarn`)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Server
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
 npm run dev
@@ -92,3 +82,33 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# Deploy
+
+## SvelteKit
+
+Build SvelteKit image via Docker:
+
+```bash
+docker build -t hormonal-pathways .
+```
+
+Run SvelteKit image in the background via Docker:
+
+```bash
+docker run -d -p 3000:3000 hormonal-pathways
+```
+
+## Flask
+
+Build Flask image via Docker:
+
+```bash
+docker build -t hp-api -f Dockerfile.api .
+```
+
+Run Flask image in the background via Docker:
+
+```bash
+docker run -d -p 4000:4000 hp-api
+```
