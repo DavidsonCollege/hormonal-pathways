@@ -33,7 +33,7 @@
         variableRangeEnd,
         numRuns,
         showValidationMessage,
-        statRun
+        isStatRun
     } from "../data3_store.js";
     import {apiEndpoint} from "../state_store.js"
 
@@ -89,30 +89,10 @@
                 .classList.remove("border-red-500");
             showValidationMessage.set(false);
         }
-
         try {
             if (!initialRun) initialRun = true;
 
-            gamma = [$gamma1, $gamma2, $gamma3];
-            z = [$z1, $z2, $z3];
-            const params = {
-                gamma: gamma.join(","), //convert array to comma-separated string
-                G: $G,
-                Xmin: $Xmin,
-                delSmax: $delSmax,
-                delCmax: $delCmax,
-                tau: $tau,
-                K: $K,
-                alpha: $alpha,
-                beta: $beta,
-                mu: $mu,
-                z: z.join(","), //convert array to comma-separated string
-                N: $N,
-                foodShort: $foodShort,
-                foodShortbegin: $foodShortbegin,
-                foodShortend: $foodShortend,
-                numRuns: $numRuns,
-            };
+            const params = setParameters();
 
             if (!$statRun) {
                 params.variableName = $variableName;
@@ -141,7 +121,7 @@
             Chist = data.Chist;
             Whist = data.Whist;
             Wcuml = data.Wcuml;
-            if($statRun){
+            if($isStatRun){
                 XhistCon = data.XhistCon;
                 ChistCon = data.ChistCon;
                 WhistCon = data.WhistCon;
@@ -165,6 +145,52 @@
     }
 
 
+    function ParseThroughDataFromModel(){
+        Xhist = data.Xhist;
+        Chist = data.Chist;
+        Whist = data.Whist;
+        Wcuml = data.Wcuml;
+        if ($isStatRun) {
+            XhistCon = data.XhistCon;
+            ChistCon = data.ChistCon;
+            WhistCon = data.WhistCon;
+            WcumlCon = data.WcumlCon;
+            ShistI = data.ShistI;
+            ShistJ = data.ShistJ;
+            ShistK = data.ShistK;
+            ShistConI = data.ShistConI;
+            ShistConJ = data.ShistConJ;
+            ShistConK = data.ShistConK;
+        } else {
+            Shist = data.Shist;
+        }
+    }
+
+    function setParameters(){
+        gamma = [$gamma1, $gamma2, $gamma3];
+            z = [$z1, $z2, $z3];
+            var params = {
+                gamma: gamma.join(","), //convert array to comma-separated string
+                G: $G,
+                Xmin: $Xmin,
+                delSmax: $delSmax,
+                delCmax: $delCmax,
+                tau: $tau,
+                K: $K,
+                alpha: $alpha,
+                beta: $beta,
+                mu: $mu,
+                z: z.join(","), //convert array to comma-separated string
+                N: $N,
+                foodShort: $foodShort,
+                foodShortbegin: $foodShortbegin,
+                foodShortend: $foodShortend,
+                numRuns: $numRuns,
+            };
+        return params;
+    }
+
+
     function interpolateColor(startColor, endColor, factor) {
         const result = startColor.slice();
         for (let i = 0; i < 3; i++) {
@@ -181,7 +207,7 @@
     const endColor = [0, 0, 255]; 
     const startColor = [255, 0, 0]; 
     let color = startColor;
-    if ($statRun) {
+    if ($isStatRun) {
         numRunsValue = 1;
     } else {
         currprefix = labelPrefix + " " + $variableName;
@@ -191,10 +217,10 @@
     const datasets = Array.from({ length: numRunsValue }, (_, runIndex) => {
         let stepInValueChange = ($variableRangeEnd-$variableRangeBegin)/(numRunsValue-1);
         let valueForLabel = $variableRangeBegin+stepInValueChange*(runIndex);
-        if(!$statRun){
+        if(!$isStatRun){
         labelPrefix = currprefix + "=" + valueForLabel
         }
-        if (!$statRun) {
+        if (!$isStatRun) {
             return {
                 label: `${labelPrefix}`,
                 data: data.map((point) => point[runIndex]),
@@ -255,7 +281,7 @@ function createCharts() {
     );
 
     // Create Sensitivity Chart
-    if ($statRun) {
+    if ($s=isStatRun) {
         switchSensitivityGraphs();
     } else {
         sensitivityChartInstance = new Chart(
@@ -498,7 +524,7 @@ const SenseChartoptions = [
 ];
 
 function flipStatRun() {
-            $statRun = !$statRun
+            $isStatRun = !$isStatRun
 }
 </script>
 
@@ -875,12 +901,12 @@ function flipStatRun() {
 <button
   on:click={flipStatRun}
   class="px-4 py-2 rounded-md focus:outline-none transition-colors duration-300"
-  class:bg-indigo-500={!$statRun}
-  class:text-white={!$statRun}
-  class:bg-indigo-600={$statRun}
-  class:text-gray-100={$statRun}
+  class:bg-indigo-500={!$isStatRun}
+  class:text-white={!$isStatRun}
+  class:bg-indigo-600={$isStatRun}
+  class:text-gray-100={$isStatRun}
 >
-  {!$statRun ? 'Multiple Lines Graph' : 'Median and Confidence Interval Graph'}
+  {!$isStatRun ? 'Multiple Lines Graph' : 'Median and Confidence Interval Graph'}
 </button>
 </div>
 
