@@ -280,35 +280,14 @@ function createCharts() {
     if (cumulativeFitnessChartInstance)
         cumulativeFitnessChartInstance.destroy();
 
-    // Create Body Condition Chart
-    bodyConditionChartInstance = new Chart(
-        document.getElementById("bodyConditionChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Xhist.length }, (_, i) => i),
-                datasets: createDatasets(Xhist, XhistCon, "Body Condition "),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text: "Body Condition"},
-                    //max: maxValue
-                },
-            },
-            },
-        }
+     // Create Body Condition Chart
+     bodyConditionChartInstance = createChart(
+      "bodyConditionChart",
+      "Body Condition",
+      "Reproductive Cycle",
+      "Body Condition",
+      Xhist,
+      XhistCon
     );
 
     // Create Sensitivity Chart
@@ -347,97 +326,35 @@ function createCharts() {
     }
 
     // Create Production Chart
-    productionChartInstance = new Chart(
-        document.getElementById("productionChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Chist.length }, (_, i) => i),
-                datasets: createDatasets(Chist, ChistCon, "Production"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Production"},
-                    //max: maxValue
-                },
-            },
-            },
-        }
+    productionChartInstance = createChart(
+      "productionChart",
+      "Production",
+      "Reproductive Cycle",
+      "Production",
+      Chist,
+      ChistCon
     );
 
     // Create Fitness Chart
-    fitnessChartInstance = new Chart(
-        document.getElementById("fitnessChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Whist.length }, (_, i) => i),
-                datasets: createDatasets(Whist, WhistCon, "Fitness"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text:"Fitness"},
-                    //max: maxValue
-                },
-            },
-            },
-            }
+    fitnessChartInstance = createChart(
+      "fitnessChart",
+      "Fitness",
+      "Reproductive Cycle",
+      "Fitness",
+      Whist,
+      WhistCon
     );
 
     // Create Cumulative Fitness Chart
-    cumulativeFitnessChartInstance = new Chart(
-        document.getElementById("cumulativeFitnessChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Wcuml.length }, (_, i) => i),
-                datasets: createDatasets(Wcuml, WcumlCon, "Cumulative Fitness"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text:"Cumulative Fitness"},
-                    //max: maxValue
-                },
-            },
-        }
-        }
+    cumulativeFitnessChartInstance = createChart(
+      "cumulativeFitnessChart",
+      "Cumulative Fitness",
+      "Reproductive Cycle",
+      "Cumulative Fitness",
+      Wcuml,
+      WcumlCon
     );
+   
 }
 
 
@@ -514,6 +431,44 @@ function createSensitivityDatasets(data, labelPrefix) {
         }
     );
 }
+
+function createChart(chartid, datasetName, XaxisName, YaxisName, baseData, confidenceData){
+    let myChart = new Chart(
+        document.getElementById(chartid),
+        {
+            type: "line",
+            data: {
+                labels: Array.from({ length: baseData.length }, (_, i) => i),
+                datasets: createDatasets(baseData, confidenceData, datasetName),
+            },
+            options:{
+            plugins: {
+                legend: {
+                    display: true, // no legend
+                },
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: { display: true, text: XaxisName},
+                    max: $N,
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: true,text:YaxisName},
+                    //max: maxValue
+                },
+            },
+        }
+        }
+    );
+    return myChart;
+
+}
+
+
+
+
     function handleDropdownChange() {
         if ($variableName === "Choose a Variable") {
             document
@@ -574,7 +529,7 @@ const SenseChartoptions = [
     { value: 'K', label: 'Trait K' }
 ];
 
-function bruh() {
+function flipStatRun() {
             $statRun = !$statRun
 }
 </script>
@@ -950,7 +905,7 @@ function bruh() {
 </div>
 <div class="flex items-center text-center justify-center ">
 <button
-  on:click={bruh}
+  on:click={flipStatRun}
   class="px-4 py-2 rounded-md focus:outline-none transition-colors duration-300"
   class:bg-indigo-500={!$statRun}
   class:text-white={!$statRun}
