@@ -134,7 +134,6 @@
 
             VhistBlueRatio = await createBirdRatioData(VhistBlue);
 
-
             createCharts();
 
             setUpIframe(proportiondata);

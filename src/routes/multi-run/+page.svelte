@@ -77,7 +77,7 @@
     });
 
     async function fetchData() {
-        if ($variableName === "Choose a Variable" && !$statRun) {
+        if ($variableName === "Choose a Variable" && !$isStatRun) {
             document
                 .getElementById("variableDropDown")
                 .classList.add("border-red-500");
@@ -94,7 +94,7 @@
 
             const params = setParameters();
 
-            if (!$statRun) {
+            if (!$isStatRun) {
                 params.variableName = $variableName;
                 params.variableRangeBegin = $variableRangeBegin;
                 params.variableRangeEnd = $variableRangeEnd;
@@ -103,7 +103,7 @@
             const queryString = new URLSearchParams(params).toString();
             let response;
             // change query given which model you want to use
-            if($statRun){
+            if($isStatRun){
                  response = await axios.get(
                 `${$apiEndpoint}/statModel?${queryString}`,
                  );
@@ -281,7 +281,7 @@ function createCharts() {
     );
 
     // Create Sensitivity Chart
-    if ($s=isStatRun) {
+    if ($isStatRun) {
         switchSensitivityGraphs();
     } else {
         sensitivityChartInstance = new Chart(
