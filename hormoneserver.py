@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import llava
-from hormoneModel_6_4_24 import hormoneModel
+from hormoneModel import hormoneModel
 from hormoneMulti import runMultiRun
 from hormoneModelStat import hormoneModelStatRun
 from flask import Flask, jsonify, request
