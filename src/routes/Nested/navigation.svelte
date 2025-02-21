@@ -136,38 +136,6 @@
                     <li class="{$page.url.pathname == '/environmental' ? 'text-indigo-500' : ''} md:px-4 md:py-2 hover:text-indigo-600 text-xl block">
                         <a href="/environmental">Environmental</a>
                     </li>
-            <!-- !! Old Dropdown Menu Code  !! -->
-            <!-- <div class="relative">
-                <button class="dropdown-toggle py-2 px-3 hover:bg-gray-700 flex items-center gap-2 rounded">
-                    <span class="pointer-events-none">Graph Models</span>
-                    <svg class="w-3 h-3 pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <title>chevron-down</title>
-                        <g fill="none">
-                            <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
-                <div class="dropdown-menu absolute hidden bg-gray-700 text-white rounded-b-lg pb-2 w-48">
-                    <a href="/single-run" class="block px-6 py-2 hover:bg-gray-800">Single Run</a>
-                    <a href="/multi-run" class="block px-6 py-2 hover:bg-gray-800">Multi Run</a>
-                </div>
-            </div>
-             Dropdown Menu for visual
-            <div class="relative">
-                <button class="dropdown-toggle py-2 px-3 hover:bg-gray-700 flex items-center gap-2 rounded">
-                    <span class="pointer-events-none">Visual Models</span>
-                    <svg class="w-3 h-3 pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <title>bruh</title>
-                        <g fill="none">
-                            <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
-                <div class="dropdown-menu absolute hidden bg-gray-700 text-white rounded-b-lg pb-2 w-48">
-                    <a href="/tissue" class="block px-6 py-2 hover:bg-gray-800">Tissue</a>
-                    <a href="/environmental" class="block px-6 py-2 hover:bg-gray-800">Environmental</a>
-                </div>
-            </div> -->
         </div>
     </div>
 </nav>
