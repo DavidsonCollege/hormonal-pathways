@@ -136,6 +136,13 @@
 
             createCharts();
 
+            const proportiondata = [
+                "proportion",
+                VhistRedRatio,
+                VhistPurpleRatio,
+                VhistBlueRatio,
+            ];
+
             setUpIframe(proportiondata);
 
             modelRan = true;
@@ -196,7 +203,7 @@
     }
 
     function setUpIframe(proportiondata) {
-        iframe = document.querySelecto("#iframeID"); //caching dom element called iframe
+        iframe = document.querySelector("#iframeID"); //caching dom element called iframe
         iframe.contentWindow.postMessage(
              JSON.stringify(proportiondata),
              "*",
