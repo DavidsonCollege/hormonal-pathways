@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from scipy.stats import beta as beta_dist
 
+# hormoneModel.py 6_4_24
+
 def hormoneModel(gammaIn : np.array = np.array([.1, 2, .3]), 
                  GIn : float = 0.1, XminIn : float = 1, delSmaxIn : float = 1, 
                  delCmaxIn : float = 1, tauIn : float = 5, KIn : float = 1, 

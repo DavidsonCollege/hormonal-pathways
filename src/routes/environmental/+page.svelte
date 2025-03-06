@@ -1,4 +1,6 @@
 <script>
+
+
     let showFitnessCharts = false;
     let showFoodScarcitySlider = false;
     let modelRan = false;
@@ -31,6 +33,7 @@
         foodShortend,
     } from "../data5_store.js";
     import { apiEndpoint, rootURL } from "../state_store.js";
+    import { get } from "svelte/store";
 
     let iframe;
 
@@ -96,9 +99,62 @@
         try {
             modelRan = true;
 
-            gamma = [$gamma1, $gamma2, $gamma3];
-            z = [$z1, $z2, $z3];
-            var params = {
+            //set up parameters
+            const params = setParameters();
+
+            //setting gamma a z values to create more weight for parental effort
+            insertParameters(params);
+
+             //blue Bird
+
+            const blueBirdData = await getBirdData(params, $delSmax3);
+
+            //red Bird
+          
+            const redBirdData = await getBirdData(params, $delSmax1);
+
+            //purple Bird
+
+            const purpleBirdData = await getBirdData(params, $delSmax2);
+
+            //assigning the data to the variables
+            VhistBlue = blueBirdData.Vhist;
+            WhistBlue = blueBirdData.Whist;
+
+            VhistRed = redBirdData.Vhist;
+            WhistRed = redBirdData.Whist;
+
+            VhistPurple = purpleBirdData.Vhist;
+            WhistPurple = purpleBirdData.Whist;
+
+            //create bird ratio data for red, purple, and blue birds
+            VhistRedRatio = await createBirdRatioData(VhistRed);
+
+            VhistPurpleRatio = await createBirdRatioData(VhistPurple);
+
+            VhistBlueRatio = await createBirdRatioData(VhistBlue);
+
+            createCharts();
+
+            const proportiondata = [
+                "proportion",
+                VhistRedRatio,
+                VhistPurpleRatio,
+                VhistBlueRatio,
+            ];
+
+            setUpIframe(proportiondata);
+
+            modelRan = true;
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    function setParameters(){
+        gamma = [$gamma1, $gamma2, $gamma3];
+        z = [$z1, $z2, $z3];
+        var params = {
                 gamma: gamma.join(","), // Convert array to comma-separated string
                 G: $G,
                 Xmin: $Xmin,
@@ -115,87 +171,45 @@
                 foodShortbegin: $foodShortbegin,
                 foodShortend: $foodShortend,
             };
-
-            // Making 3 Requests to the server in one Fetch
-
-            // Blue Bird
-            // Setting gamma a z values to create more weight for parental effort
-            params["gamma"] = [$gamma1, $gamma2, $gamma3].join(",");
-            params["z"] = [$z1, $z2, $z3].join(",");
-            params["delSmax"] = $delSmax3;
-
-            const queryStringBlue = new URLSearchParams(params).toString();
-            const responseBlue = await axios.get(
-                `${$apiEndpoint}/hormonemodel?${queryStringBlue}`,
-            );
-            const dataBlue = responseBlue.data;
-
-            // Red Bird
-
-            // Setting gamma a z values to create more weight for mating effort
-            // params['gamma'] = [$gamma1, $gamma3, $gamma2].join(",");
-            // params['z'] = [$z1, $z3, $z2].join(",");
-            params["delSmax"] = $delSmax1;
-
-            const queryStringRed = new URLSearchParams(params).toString();
-            const responseRed = await axios.get(
-                `${$apiEndpoint}/hormonemodel?${queryStringRed}`,
-            );
-            const dataRed = responseRed.data;
-
-            // Purple Bird
-
-            // Setting gamma a z values to put equal weight on each trait
-            // params['gamma'] = [$gamma1, $gamma1, $gamma1].join(",");
-            // params['z'] = [$z1, $z1, $z1].join(",");
-            params["delSmax"] = $delSmax2;
-
-            const queryStringPurple = new URLSearchParams(params).toString();
-            const responsePurple = await axios.get(
-                `${$apiEndpoint}/hormonemodel?${queryStringPurple}`,
-            );
-            const dataPurple = responsePurple.data;
-
-            // Making the bird data
-            VhistBlue = dataBlue.Vhist;
-            VhistRed = dataRed.Vhist;
-            VhistPurple = dataPurple.Vhist;
-            WhistBlue = dataBlue.Whist;
-            WhistRed = dataRed.Whist;
-            WhistPurple = dataPurple.Whist;
-
-            // Making the Bird Ratios
-            for (let i = 0; i < VhistBlue[0].length; i++) {
-                VhistRedRatio.push(
-                    VhistRed[1][i] / (VhistRed[1][i] + VhistRed[2][i]),
-                );
-                VhistPurpleRatio.push(
-                    VhistPurple[1][i] / (VhistPurple[1][i] + VhistPurple[2][i]),
-                );
-                VhistBlueRatio.push(
-                    VhistBlue[1][i] / (VhistBlue[1][i] + VhistBlue[2][i]),
-                );
-            }
-
-            createCharts();
-
-            iframe = document.querySelector("#iframeID"); //caching dom element called iframe
-            const proportiondata = [
-                "proportion",
-                VhistRedRatio,
-                VhistPurpleRatio,
-                VhistBlueRatio,
-            ];
-            iframe.contentWindow.postMessage(
-                JSON.stringify(proportiondata),
-                "*",
-            ); // pushes message to the
-
-            modelRan = true;
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
+        return params;
     }
+
+    async function insertParameters(params) {
+        params["gamma"] = [$gamma1, $gamma2, $gamma3].join(",");
+        params["z"] = [$z1, $z2, $z3].join(",");
+        params["delSmax"] = $delSmax3;
+    }
+
+    async function getDataFromModel(params) {
+        const queryString = new URLSearchParams(params).toString();
+        const response = await axios.get(
+            `${$apiEndpoint}/hormonemodel?${queryString}`,
+        );
+        return response.data;
+    }
+
+    async function getBirdData(params, delSmax) {
+    params["delSmax"] = delSmax;
+    const data = await getDataFromModel(params);
+    return data; 
+    }
+
+    async function createBirdRatioData(Vhist) {
+        let VhistRatio = [];
+        for (let i = 0; i < Vhist[0].length; i++) {
+            VhistRatio.push(Vhist[1][i] / (Vhist[1][i] + Vhist[2][i]));
+        }
+        return VhistRatio;
+    }
+
+    function setUpIframe(proportiondata) {
+        iframe = document.querySelector("#iframeID"); //caching dom element called iframe
+        iframe.contentWindow.postMessage(
+             JSON.stringify(proportiondata),
+             "*",
+            ); 
+    }
+
 
     function makeChart(canvas, title, y, legendTitles, color, maxValue, ylabel) {
         // <block:data:3>

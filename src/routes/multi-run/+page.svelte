@@ -33,7 +33,7 @@
         variableRangeEnd,
         numRuns,
         showValidationMessage,
-        statRun
+        isStatRun
     } from "../data3_store.js";
     import {apiEndpoint} from "../state_store.js"
 
@@ -77,7 +77,7 @@
     });
 
     async function fetchData() {
-        if ($variableName === "Choose a Variable" && !$statRun) {
+        if ($variableName === "Choose a Variable" && !$isStatRun) {
             document
                 .getElementById("variableDropDown")
                 .classList.add("border-red-500");
@@ -89,32 +89,12 @@
                 .classList.remove("border-red-500");
             showValidationMessage.set(false);
         }
-
         try {
             if (!initialRun) initialRun = true;
 
-            gamma = [$gamma1, $gamma2, $gamma3];
-            z = [$z1, $z2, $z3];
-            const params = {
-                gamma: gamma.join(","), // Convert array to comma-separated string
-                G: $G,
-                Xmin: $Xmin,
-                delSmax: $delSmax,
-                delCmax: $delCmax,
-                tau: $tau,
-                K: $K,
-                alpha: $alpha,
-                beta: $beta,
-                mu: $mu,
-                z: z.join(","), // Convert array to comma-separated string
-                N: $N,
-                foodShort: $foodShort,
-                foodShortbegin: $foodShortbegin,
-                foodShortend: $foodShortend,
-                numRuns: $numRuns,
-            };
+            const params = setParameters();
 
-            if (!$statRun) {
+            if (!$isStatRun) {
                 params.variableName = $variableName;
                 params.variableRangeBegin = $variableRangeBegin;
                 params.variableRangeEnd = $variableRangeEnd;
@@ -123,7 +103,7 @@
             const queryString = new URLSearchParams(params).toString();
             let response;
             // change query given which model you want to use
-            if($statRun){
+            if($isStatRun){
                  response = await axios.get(
                 `${$apiEndpoint}/statModel?${queryString}`,
                  );
@@ -136,17 +116,17 @@
 
             const data = response.data;
 
-            // Data from API
+            //Data from API
             Xhist = data.Xhist;
             Chist = data.Chist;
             Whist = data.Whist;
             Wcuml = data.Wcuml;
-            if($statRun){
+            if($isStatRun){
                 XhistCon = data.XhistCon;
                 ChistCon = data.ChistCon;
                 WhistCon = data.WhistCon;
                 WcumlCon = data.WcumlCon;
-                // Shist DataSets
+                //Shist DataSets
                 ShistI = data.ShistI;
                 ShistJ = data.ShistJ;
                 ShistK = data.ShistK;
@@ -164,43 +144,52 @@
         }
     }
 
-    // if (canvas == bodyConditionChart || canvas == sensitivityChart) {
-    //     maxValue = 10
-    // } else if (canvas == cumulativeFitnessChart) {
-    //     maxValue = 50
-    // } else if (canvas == productionChart) {
-    //     maxValue = 20
-    // } else {
-    //     maxValue = 5
-    // };
 
-
-    // definechartOptions to higher scope
-    const chartOptions = {
-            plugins: {
-                legend: {
-                    display: false, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true},
-                    //max: maxValue
-                },
-            },
-        };
-
-        function createDatasets(data, ConfidenceData, labelPrefix) {
-    let numRunsValue = $numRuns; // Number of lines
-    if ($statRun) {
-        numRunsValue = 1;
+    function ParseThroughDataFromModel(){
+        Xhist = data.Xhist;
+        Chist = data.Chist;
+        Whist = data.Whist;
+        Wcuml = data.Wcuml;
+        if ($isStatRun) {
+            XhistCon = data.XhistCon;
+            ChistCon = data.ChistCon;
+            WhistCon = data.WhistCon;
+            WcumlCon = data.WcumlCon;
+            ShistI = data.ShistI;
+            ShistJ = data.ShistJ;
+            ShistK = data.ShistK;
+            ShistConI = data.ShistConI;
+            ShistConJ = data.ShistConJ;
+            ShistConK = data.ShistConK;
+        } else {
+            Shist = data.Shist;
+        }
     }
+
+    function setParameters(){
+        gamma = [$gamma1, $gamma2, $gamma3];
+            z = [$z1, $z2, $z3];
+            var params = {
+                gamma: gamma.join(","), //convert array to comma-separated string
+                G: $G,
+                Xmin: $Xmin,
+                delSmax: $delSmax,
+                delCmax: $delCmax,
+                tau: $tau,
+                K: $K,
+                alpha: $alpha,
+                beta: $beta,
+                mu: $mu,
+                z: z.join(","), //convert array to comma-separated string
+                N: $N,
+                foodShort: $foodShort,
+                foodShortbegin: $foodShortbegin,
+                foodShortend: $foodShortend,
+                numRuns: $numRuns,
+            };
+        return params;
+    }
+
 
     function interpolateColor(startColor, endColor, factor) {
         const result = startColor.slice();
@@ -212,21 +201,26 @@
         return result;
     }
 
-    const endColor = [0, 0, 255]; // Blue
-    const startColor = [255, 0, 0]; // Red
-    if(!$statRun){
-        currprefix = labelPrefix + " " + $variableName;
-    }
+
+    function createDatasets(data, ConfidenceData, labelPrefix) {
+    let numRunsValue = $numRuns; // Number of lines
+    const endColor = [0, 0, 255]; 
+    const startColor = [255, 0, 0]; 
     let color = startColor;
+    if ($isStatRun) {
+        numRunsValue = 1;
+    } else {
+        currprefix = labelPrefix + " " + $variableName;
+        color = interpolateColor(startColor, endColor, factor);
+    }
+
     const datasets = Array.from({ length: numRunsValue }, (_, runIndex) => {
-        const factor = runIndex / (numRunsValue - 1);
         let stepInValueChange = ($variableRangeEnd-$variableRangeBegin)/(numRunsValue-1);
         let valueForLabel = $variableRangeBegin+stepInValueChange*(runIndex);
-        if(!$statRun){
+        if(!$isStatRun){
         labelPrefix = currprefix + "=" + valueForLabel
         }
-        if (!$statRun) {
-            color = interpolateColor(startColor, endColor, factor);
+        if (!$isStatRun) {
             return {
                 label: `${labelPrefix}`,
                 data: data.map((point) => point[runIndex]),
@@ -267,52 +261,27 @@
 
             return [mainDataset, lowerBoundDataset, upperBoundDataset];
         }
-    }).flat(); // Flatten the array to merge all datasets
+    }).flat(); //flatten the array to merge all datasets
 
     return datasets;
 }
 
 function createCharts() {
-    if (bodyConditionChartInstance) bodyConditionChartInstance.destroy();
-    if (sensitivityChartInstance) sensitivityChartInstance.destroy();
-    if (productionChartInstance) productionChartInstance.destroy();
-    if (fitnessChartInstance) fitnessChartInstance.destroy();
-    if (cumulativeFitnessChartInstance)
-        cumulativeFitnessChartInstance.destroy();
+    //destroy existing charts for re-render
+    destroyChartsIfExist();
 
-    // Create Body Condition Chart
-    bodyConditionChartInstance = new Chart(
-        document.getElementById("bodyConditionChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Xhist.length }, (_, i) => i),
-                datasets: createDatasets(Xhist, XhistCon, "Body Condition "),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text: "Body Condition"},
-                    //max: maxValue
-                },
-            },
-            },
-        }
+     // Create Body Condition Chart
+     bodyConditionChartInstance = createChart(
+      "bodyConditionChart",
+      "Body Condition",
+      "Reproductive Cycle",
+      "Body Condition",
+      Xhist,
+      XhistCon
     );
 
     // Create Sensitivity Chart
-    if ($statRun) {
+    if ($isStatRun) {
         switchSensitivityGraphs();
     } else {
         sensitivityChartInstance = new Chart(
@@ -326,7 +295,7 @@ function createCharts() {
                 options:{
             plugins: {
                 legend: {
-                    display: true, // no legend
+                    display: true, //no legend
                 },
             },
             scales: {
@@ -347,97 +316,43 @@ function createCharts() {
     }
 
     // Create Production Chart
-    productionChartInstance = new Chart(
-        document.getElementById("productionChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Chist.length }, (_, i) => i),
-                datasets: createDatasets(Chist, ChistCon, "Production"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Production"},
-                    //max: maxValue
-                },
-            },
-            },
-        }
+    productionChartInstance = createChart(
+      "productionChart",
+      "Production",
+      "Reproductive Cycle",
+      "Production",
+      Chist,
+      ChistCon
     );
 
     // Create Fitness Chart
-    fitnessChartInstance = new Chart(
-        document.getElementById("fitnessChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Whist.length }, (_, i) => i),
-                datasets: createDatasets(Whist, WhistCon, "Fitness"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text:"Fitness"},
-                    //max: maxValue
-                },
-            },
-            },
-            }
+    fitnessChartInstance = createChart(
+      "fitnessChart",
+      "Fitness",
+      "Reproductive Cycle",
+      "Fitness",
+      Whist,
+      WhistCon
     );
 
     // Create Cumulative Fitness Chart
-    cumulativeFitnessChartInstance = new Chart(
-        document.getElementById("cumulativeFitnessChart"),
-        {
-            type: "line",
-            data: {
-                labels: Array.from({ length: Wcuml.length }, (_, i) => i),
-                datasets: createDatasets(Wcuml, WcumlCon, "Cumulative Fitness"),
-            },
-            options:{
-            plugins: {
-                legend: {
-                    display: true, // no legend
-                },
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: { display: true, text: "Reproductive Cycle" },
-                    max: $N,
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true,text:"Cumulative Fitness"},
-                    //max: maxValue
-                },
-            },
-        }
-        }
+    cumulativeFitnessChartInstance = createChart(
+      "cumulativeFitnessChart",
+      "Cumulative Fitness",
+      "Reproductive Cycle",
+      "Cumulative Fitness",
+      Wcuml,
+      WcumlCon
     );
+   
+}
+
+function destroyChartsIfExist() {
+    if (bodyConditionChartInstance) bodyConditionChartInstance.destroy();
+    if (sensitivityChartInstance) sensitivityChartInstance.destroy();
+    if (productionChartInstance) productionChartInstance.destroy();
+    if (fitnessChartInstance) fitnessChartInstance.destroy();
+    if (cumulativeFitnessChartInstance) cumulativeFitnessChartInstance.destroy();
 }
 
 
@@ -514,6 +429,40 @@ function createSensitivityDatasets(data, labelPrefix) {
         }
     );
 }
+
+function createChart(chartid, datasetName, XaxisName, YaxisName, baseData, confidenceData){
+    let myChart = new Chart(
+        document.getElementById(chartid),
+        {
+            type: "line",
+            data: {
+                labels: Array.from({ length: baseData.length }, (_, i) => i),
+                datasets: createDatasets(baseData, confidenceData, datasetName),
+            },
+            options:{
+            plugins: {
+                legend: {
+                    display: true, // no legend
+                },
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: { display: true, text: XaxisName},
+                    max: $N,
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: true,text:YaxisName},
+                    //max: maxValue
+                },
+            },
+        }
+        }
+    );
+    return myChart;
+}
+
     function handleDropdownChange() {
         if ($variableName === "Choose a Variable") {
             document
@@ -574,8 +523,8 @@ const SenseChartoptions = [
     { value: 'K', label: 'Trait K' }
 ];
 
-function bruh() {
-            $statRun = !$statRun
+function flipStatRun() {
+            $isStatRun = !$isStatRun
 }
 </script>
 
@@ -950,14 +899,14 @@ function bruh() {
 </div>
 <div class="flex items-center text-center justify-center ">
 <button
-  on:click={bruh}
+  on:click={flipStatRun}
   class="px-4 py-2 rounded-md focus:outline-none transition-colors duration-300"
-  class:bg-indigo-500={!$statRun}
-  class:text-white={!$statRun}
-  class:bg-indigo-600={$statRun}
-  class:text-gray-100={$statRun}
+  class:bg-indigo-500={!$isStatRun}
+  class:text-white={!$isStatRun}
+  class:bg-indigo-600={$isStatRun}
+  class:text-gray-100={$isStatRun}
 >
-  {!$statRun ? 'Multiple Lines Graph' : 'Median and Confidence Interval Graph'}
+  {!$isStatRun ? 'Multiple Lines Graph' : 'Median and Confidence Interval Graph'}
 </button>
 </div>
 

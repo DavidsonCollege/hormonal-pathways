@@ -244,7 +244,7 @@
             cumulativeFitnessChartInstance.destroy();
         //if (traitChartInstance) traitChartInstance.destroy();
 
-        // Create Body Condition Chart
+        //create Body Condition Chart
         bodyConditionChartInstance = makeChart(
             "bodyConditionChart",
             "Body Condition",
@@ -254,7 +254,7 @@
             "Energy of the organism"
         );
 
-        // Create Sensitivity Chart
+        //create Sensitivity Chart
         sensitivityChartInstance = makeChart(
             "sensitivityChart",
             "Sensitivity",
@@ -264,7 +264,7 @@
             "Sensitivity to hormone"
         );
 
-        // Create Production Chart
+        //create Production Chart
         productionChartInstance = makeChart(
             "productionChart",
             "Production",
@@ -274,7 +274,7 @@
             "Hormone concentration"
         );
 
-        // Create Fitness Chart
+        //create Fitness Chart
         fitnessChartInstance = makeChart(
             "fitnessChart",
             "Fitness",
@@ -284,7 +284,7 @@
             "Fitness"
         );
 
-        // Create Cumulative Fitness Chart
+        //create Cumulative Fitness Chart
         cumulativeFitnessChartInstance = makeChart(
             "cumulativeFitnessChart",
             "Cumulative Fitness",
@@ -293,14 +293,6 @@
             150,
             "Accumulated Fitness"
         );
-
-        // traitChartInstance = makeChart(
-        //     "traitChart",
-        //     "Trait Value",
-        //     Vhist,
-        //     "rgba(210, 155, 90, 1)",
-        //     2.5
-        // )
     }
 
     function exportChartBase64(chartInstance){
