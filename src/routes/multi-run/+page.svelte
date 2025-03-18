@@ -912,7 +912,7 @@ function flipStatRun() {
 
 <div class="text-center my-4">
     <button
-        class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-4 py-2 rounded"
+        class="bg-indigo-600 hover:bg-indigo-300 text-white font-bold px-4 py-2 rounded"
         on:click={fetchData}>Run</button
     >
 </div>
