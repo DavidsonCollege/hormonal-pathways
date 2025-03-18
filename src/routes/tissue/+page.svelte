@@ -233,6 +233,7 @@
         <button
             on:click={() => updateSmax(1)}
         >
+        <span class="sr-only">red bird</span>
             <BirdButton BirdColor="red" BirdID=1 />
         </button>
     </div>
@@ -242,6 +243,7 @@
         <button
             on:click={() => updateSmax(2)}
         >
+        <span class="sr-only">purple bird</span>
             <BirdButton BirdColor="purple" BirdID=2 />
         </button>
     </div>
@@ -251,6 +253,7 @@
         <button
             on:click={() => updateSmax(3)}
         >
+        <span class="sr-only">blue bird</span>
             <BirdButton BirdColor="blue" BirdID=3 />
         </button>
     </div>
