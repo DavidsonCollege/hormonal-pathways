@@ -104,22 +104,25 @@
             </div>
 
             <!--text-->
-            <div for={inputVarLowName}
+            <label for=fromSlider
                  class="flex absolute left-0 font-normal truncate leading-tight -top-1.5 text-[11px] -mt-[10px]">
-                 Begin</div>
+                 Begin</label>
 
-            <div for={inputVarHighName}
+            <label for=toSlider
                  class="flex absolute right-0 font-normal truncate leading-tight -top-1.5 text-[11px] -mt-[10px] mr-[168px]">
-                 End</div>
+                 End</label>
         </div>
         
         <!-- input boxes and text -->
         <!-- <div class="items-center w-1/4 h-3/4 "> -->
         <div class="flex flex-row w-[144px] justify-between -mt-3 ml-[6px]">
-            <input type="number" bind:value={inputVarLow} min={minForVarLow}  max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans l outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
+            <label for="startInput" class="sr-only">Begin</label>
+            <label for="endInput" class="sr-only">End</label>
+
+            <input id="startInput" type="number" bind:value={inputVarLow} min={minForVarLow}  max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans l outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
             border focus:border-2 text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900 focus:border-purple-500 placeholder:text-blue-gray-100 text-[11px] w-[68px] h-[30px]" on:input={controlFromInput} />
 
-            <input type="number" bind:value={inputVarHigh} min={minForVarLow} max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
+            <input id="endInput" type="number" bind:value={inputVarHigh} min={minForVarLow} max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
             border focus:border-2 text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900 focus:border-purple-500 placeholder:text-blue-gray-100 text-[11px] w-[68px] h-[30px]" on:input={controlToInput} />
     
         </div>
