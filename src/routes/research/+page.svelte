@@ -1,5 +1,5 @@
 <div class="flex items-center justify-center mb-1 mt-10">
-    <img src="/graphicalAbstractFINAL.png" class="object-center w-1/2" alt="The Research Poster that is attributed to the model">
+    <img src="/graphicalAbstractFINAL.png" class="object-center w-1/2" alt="The research poster, made by the code+ team, that is attributed to the model's website">
 </div>
 <div class="my-8 text-center text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r to-indigo-500 from-darkIndigo">
     Research Introduction
@@ -43,5 +43,5 @@ Hormonal systems are integral to the regulation of complex traits and behaviors.
     Model Information
 </div>
 <div class="flex items-center justify-center pb-[50px]">
-    <img src="/UpdatedHandout.png" class="object-center w-3/4" alt="The Research Poster that is attributed to the model">
+    <img src="/UpdatedHandout.png" class="object-center w-3/4" alt="A handout, made by the researchers, of the structure of the math model.">
 </div>
