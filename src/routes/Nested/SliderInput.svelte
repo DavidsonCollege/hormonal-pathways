@@ -18,7 +18,6 @@
 <div class="w-72 m-2">
     <div class="flex flex-row flex-wrap justify-end mr-[70px] -mt-[16px]">
         <button class="mt-4" on:click={() => (showModal = true)}> 
-          <span class="sr-only">tooltip</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class=" size-5 -mt-px">
             <path fill-rule="evenodd"
               d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
@@ -48,7 +47,8 @@
             {min}
             {max}
             {step}
-            class="peer w-3/4 h-full bg-transparent font-sans text-sm appearance-none [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-100 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[20px] [&::-webkit-slider-thumb]:w-[20px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500 -mt-2 {disabled ? 'disable' : ''} "
+            class="peer w-3/4 h-full font-sans bg-transparent text-sm appearance-none [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-100 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[20px] [&::-webkit-slider-thumb]:w-[20px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500 [&::-moz-range-thumb]:h-[20px] [&::-moz-range-thumb]:w-[20px] [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-purple-500 [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:outline-none 
+           [&::-moz-range-thumb]:shadow-none [&::-moz-range-track]:bg-gray-100 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:h-[20px] -mt-2 {disabled ? 'disable' : ''} "
             bind:value={inputVar}
             on:input={callback}
         />
@@ -79,3 +79,6 @@
         -->
     </div>
 </div>
+
+
+

@@ -145,12 +145,15 @@
 
     input[type=range]::-moz-range-thumb {
         pointer-events: all;
-        width: 24px;
-        height: 24px;
-        background-color: #fff;
+        width: 20px;
+        height: 20px;
+        background-color: #a855f7;
         border-radius: 50%;
-        box-shadow: 0 0 0 1px #C6C6C6;
         cursor: pointer;
+        opacity: 75%;
+        outline: none;
+        --tw-shadow: none;
+        border: none;
     }
 </style>
 
