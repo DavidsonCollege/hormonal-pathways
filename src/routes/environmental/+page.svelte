@@ -470,7 +470,7 @@
     </div>
 </div>
 
-<div class="flex justify-center">
+<div class="flex flex-wrap justify-center">
     <div class="flex flex-col items-center m-5">
         <h4 class="text-center text-base font-semibold">
             Low Ability to Change Hormone Sensitivity
@@ -576,7 +576,7 @@
         <span id="reproductiveCycle" class="text-center text-base font-semibold">Reproductive Cycle: 0</span>
     </div>
 
-    <div class="rounded-container">
+    <div class="rounded-container max-[800px]:scale-[90%] max-[600px]:scale-[50%] max-[400px]:scale-[40%]">
         <iframe
             width="800"
             height="590"
