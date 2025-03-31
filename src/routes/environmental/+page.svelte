@@ -482,7 +482,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Red Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -503,7 +503,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Purple Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -524,7 +524,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Blue Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -576,7 +576,7 @@
         <span id="reproductiveCycle" class="text-center text-base font-semibold">Reproductive Cycle: 0</span>
     </div>
 
-    <div class="rounded-container max-[800px]:scale-[90%] max-[600px]:scale-[50%] max-[400px]:scale-[40%]">
+    <div class="rounded-container max-[1000px]:scale-[90%] max-[800px]:scale-[85%] max-[700px]:scale-[65%] max-[600px]:scale-[50%] max-[400px]:scale-[40%]">
         <iframe
             width="800"
             height="590"

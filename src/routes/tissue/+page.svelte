@@ -307,7 +307,7 @@
 
 <!-- Simulations -->
 <div class="flex flex-wrap items-center justify-center gap-4">
-    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
+    <div class="flex flex-col max-[600px]:scale-[80%] max-[400px]:scale-[70%]">
         <h2 class="text-center text-xl font-semibold">
             Gamete Maturation <em>(V<sub>g</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -328,7 +328,7 @@
         />
     </div>
 
-    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
+    <div class="flex flex-col max-[600px]:scale-[80%] max-[400px]:scale-[70%]">
         <h2 class="text-center text-xl font-semibold">
             Parental Effort <em>(V<sub>m</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -349,7 +349,7 @@
         />
     </div>
 
-    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
+    <div class="flex flex-col max-[600px]:scale-[80%] max-[400px]:scale-[70%]">
         <h2 class="text-center text-xl font-semibold">
             Mating Effort <em>(V<sub>p</sub> ,<sub>t</sub>)</em>
         </h2>
