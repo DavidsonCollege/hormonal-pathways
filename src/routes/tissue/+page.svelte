@@ -227,7 +227,7 @@
 <div class="flex items-center justify-center font-bold text-xl mt-4 mb-8">Click a bird to run the tissue model</div>
 
 <!-- Bird buttons -->
-<div class=" flex space-x-2 justify-center">
+<div class=" flex space-x-2 justify-center max-[600px]:flex-col max-[600px]:items-center">
     <div class="flex, flex-col justify-center">
         <h2 class="text-center text-l font-semibold">Low Tissue Sensitivity</h2>
         <button
@@ -283,7 +283,7 @@
 
 <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700 z-[100]" />
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center max-[600px]:scale-[75%] max-[400px]:scale-[65%]">
     <div class="mt-[-80px] mb-5 z-[-1]">
         <TissueLegend />
     </div>
@@ -306,8 +306,8 @@
 </div>
 
 <!-- Simulations -->
-<div class="flex flex-row flex-wrap items-center justify-center p-5 space-x-10">
-    <div class="flex flex-col justify-center">
+<div class="flex flex-wrap items-center justify-center gap-4">
+    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
         <h2 class="text-center text-xl font-semibold">
             Gamete Maturation <em>(V<sub>g</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -328,7 +328,7 @@
         />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
         <h2 class="text-center text-xl font-semibold">
             Parental Effort <em>(V<sub>m</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -349,7 +349,7 @@
         />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col max-[600px]:scale-[85%] max-[400px]:scale-[75%]">
         <h2 class="text-center text-xl font-semibold">
             Mating Effort <em>(V<sub>p</sub> ,<sub>t</sub>)</em>
         </h2>
