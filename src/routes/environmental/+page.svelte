@@ -576,7 +576,7 @@
         <span id="reproductiveCycle" class="text-center text-base font-semibold">Reproductive Cycle: 0</span>
     </div>
 
-    <div class="rounded-container max-[1000px]:scale-[90%] max-[800px]:scale-[85%] max-[700px]:scale-[65%] max-[600px]:scale-[50%] max-[400px]:scale-[40%]">
+    <div class="rounded-container smd:scale-[90%] xsm:scale-[85%] xxsm:scale-[65%] xxxsm:scale-[50%] xxxxsm:scale-[40%]">
         <iframe
             width="800"
             height="590"
