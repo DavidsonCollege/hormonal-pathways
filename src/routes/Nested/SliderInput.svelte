@@ -48,8 +48,7 @@
             {min}
             {max}
             {step}
-            class="peer w-3/4 h-full font-sans bg-transparent text-sm appearance-none [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-100 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[20px] [&::-webkit-slider-thumb]:w-[20px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500 [&::-moz-range-thumb]:h-[20px] [&::-moz-range-thumb]:w-[20px] [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-purple-500 [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:outline-none 
-           [&::-moz-range-thumb]:shadow-none [&::-moz-range-track]:bg-gray-100 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:h-[20px] -mt-2 {disabled ? 'disable' : ''} "
+            class="peer w-3/4 h-full font-sans bg-transparent text-sm appearance-none -mt-2 {disabled ? 'disable' : ''} "
             bind:value={inputVar}
             on:input={callback}
         />
@@ -82,4 +81,37 @@
 </div>
 
 
+<style>
+  input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 9999px;
+      background-color: rgb(168 85 247);
+    }
+  
+    input[type=range]::-webkit-slider-runnable-track {
+        background-color: rgb(243 244 246);
+        border-radius: 9999px;
+    }
 
+
+    input[type=range]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        background-color: rgb(168 85 247);
+        border-style: none;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+		--tw-shadow: 0 0 #0000;
+    	--tw-shadow-colored: 0 0 #0000;
+    	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    }
+
+	input[type=range]::-moz-range-track {
+        background-color: rgb(243 244 246);
+        border-radius: 9999px;
+		height: 20px;
+    }
+</style>
