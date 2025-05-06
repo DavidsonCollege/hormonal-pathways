@@ -7,10 +7,10 @@
     let modalMessage = null;
     let isLoading  = false;
 
-    async function runLlavaScript(index, base64Data) {
+    async function runCGPTScript(index, base64Data) {
         isLoading = true;
         try {
-            const response = await fetch(`${apiEndpoint}/llavaserver`, {
+            const response = await fetch(`${$apiEndpoint}/cgptserver`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,7 +35,7 @@
     }
 
     async function handleDataChange(index, imageData) {
-        const message = await runLlavaScript(index, imageData);
+        const message = await runCGPTScript(index, imageData);
         modalMessage = message;
         $chartDescriptions[index] = message
         }

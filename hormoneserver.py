@@ -1,6 +1,6 @@
 import json
 import numpy as np
-import llava
+import imageai
 from hormoneModel import hormoneModel
 from hormoneMulti import runMultiRun
 from hormoneModelStat import hormoneModelStatRun
@@ -102,15 +102,18 @@ def get_stat_arrays():
         app.logger.error(f"Error processing request: {e}")
         return jsonify({'error': str(e)}), 400
     
-@app.route('/llavaserver', methods=['POST'])
+@app.route('/cgptserver', methods=['POST'])
 def run_script():
-    index = request.json.get('index')
-    data = request.json.get('base64')
-    response = llava.run_analysis(index, data)
-    #print(response)
-    # Return some result
-    return jsonify({"message": response})
-    
+    try:
+        index = request.json.get('index')
+        data = request.json.get('base64')
+        response = imageai.run_analysis(index, data)
+        #print(response)
+        # Return some result
+        return jsonify({"message": response})
+    except Exception as e:
+        app.logger.error(f"Error processing request: {e}")
+        return jsonify({'error': str(e)}), 400
 
 
 if __name__ == '__main__':
