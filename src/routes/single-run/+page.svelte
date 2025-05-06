@@ -49,7 +49,7 @@
     let cumulativeFitnessChartInstance = null;
     //let traitChartInstance = null;
 
-    let showAIButtons = false
+    let showAIButtons = true;
 
     onMount(() => {
         fetchData();
