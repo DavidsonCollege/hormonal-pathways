@@ -282,8 +282,8 @@
 </div>
 
 <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700 z-[100]" />
-
-<div class="flex flex-col justify-center items-center xxxsm:scale-[75%] xxxxsm:scale-[65%]">
+x
+<div class="flex flex-col justify-center items-center scale-[80%] xsm:scale-[100%]">
     <div class="mt-[-80px] mb-5 z-[-1]">
         <TissueLegend />
     </div>
@@ -307,7 +307,7 @@
 
 <!-- Simulations -->
 <div class="flex flex-wrap items-center justify-center gap-4">
-    <div class="flex flex-col xxxsm:scale-[80%] xxxxsm:scale-[70%]">
+    <div class="flex flex-col scale-[80%] xsm:scale-[100%]">
         <h2 class="text-center text-xl font-semibold">
             Gamete Maturation <em>(V<sub>g</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -328,7 +328,7 @@
         />
     </div>
 
-    <div class="flex flex-col xxxsm:scale-[80%] xxxxsm:scale-[70%]">
+    <div class="flex flex-col scale-[80%] xsm:scale-[100%]">
         <h2 class="text-center text-xl font-semibold">
             Parental Effort <em>(V<sub>m</sub> ,<sub>t</sub>)</em>
         </h2>
@@ -349,7 +349,7 @@
         />
     </div>
 
-    <div class="flex flex-col xxxsm:scale-[80%] xxxxsm:scale-[70%]">
+    <div class="flex flex-col scale-[80%] xsm:scale-[100%]">
         <h2 class="text-center text-xl font-semibold">
             Mating Effort <em>(V<sub>p</sub> ,<sub>t</sub>)</em>
         </h2>
