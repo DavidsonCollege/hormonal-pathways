@@ -470,7 +470,7 @@
     </div>
 </div>
 
-<div class="flex justify-center">
+<div class="flex flex-wrap justify-center">
     <div class="flex flex-col items-center m-5">
         <h4 class="text-center text-base font-semibold">
             Low Ability to Change Hormone Sensitivity
@@ -482,7 +482,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Red Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -503,7 +503,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Purple Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -524,7 +524,7 @@
         />
 
         <SliderInput
-            id="Max change of sensitivity"
+            id="Max change of sensitivity - Blue Bird"
             min="0.01"
             max="1"
             step="0.01"
@@ -558,7 +558,7 @@
 
     <!-- Run Simulation Button -->
     <button
-        class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-4 py-2 rounded {modelRan
+        class="bg-indigo-600 hover:bg-indigo-300 text-white font-bold px-4 py-2 rounded {modelRan
             ? 'disable'
             : ''}"
         on:click={fetchData}>Run</button
@@ -576,7 +576,7 @@
         <span id="reproductiveCycle" class="text-center text-base font-semibold">Reproductive Cycle: 0</span>
     </div>
 
-    <div class="rounded-container">
+    <div class="rounded-container smd:scale-[90%] xsm:scale-[85%] xxsm:scale-[65%] xxxsm:scale-[50%] xxxxsm:scale-[40%]">
         <iframe
             width="800"
             height="590"

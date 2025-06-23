@@ -74,6 +74,7 @@
 <div class="w-[360px] m-2 mt-7">
     <div class="flex flex-row flex-wrap justify-end mr-[144px] -mt-9">
         <button class="mt-4" on:click={() => (showModal = true)}> 
+          <span class="sr-only">tooltip</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class=" size-5">
             <path fill-rule="evenodd"
               d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
@@ -103,22 +104,25 @@
             </div>
 
             <!--text-->
-            <div for={inputVarLowName}
+            <label for=fromSlider
                  class="flex absolute left-0 font-normal truncate leading-tight -top-1.5 text-[11px] -mt-[10px]">
-                 Begin</div>
+                 Begin</label>
 
-            <div for={inputVarHighName}
+            <label for=toSlider
                  class="flex absolute right-0 font-normal truncate leading-tight -top-1.5 text-[11px] -mt-[10px] mr-[168px]">
-                 End</div>
+                 End</label>
         </div>
         
         <!-- input boxes and text -->
         <!-- <div class="items-center w-1/4 h-3/4 "> -->
         <div class="flex flex-row w-[144px] justify-between -mt-3 ml-[6px]">
-            <input type="number" bind:value={inputVarLow} min={minForVarLow}  max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans l outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
+            <label for="startInput" class="sr-only">Begin</label>
+            <label for="endInput" class="sr-only">End</label>
+
+            <input id="startInput" type="number" bind:value={inputVarLow} min={minForVarLow}  max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans l outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
             border focus:border-2 text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900 focus:border-purple-500 placeholder:text-blue-gray-100 text-[11px] w-[68px] h-[30px]" on:input={controlFromInput} />
 
-            <input type="number" bind:value={inputVarHigh} min={minForVarLow} max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
+            <input id="endInput" type="number" bind:value={inputVarHigh} min={minForVarLow} max={maxForVarHigh}  class="bg-transparent text-blue-gray-700 font-sans outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200
             border focus:border-2 text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900 focus:border-purple-500 placeholder:text-blue-gray-100 text-[11px] w-[68px] h-[30px]" on:input={controlToInput} />
     
         </div>
@@ -141,12 +145,15 @@
 
     input[type=range]::-moz-range-thumb {
         pointer-events: all;
-        width: 24px;
-        height: 24px;
-        background-color: #fff;
+        width: 20px;
+        height: 20px;
+        background-color: #a855f7;
         border-radius: 50%;
-        box-shadow: 0 0 0 1px #C6C6C6;
         cursor: pointer;
+        opacity: 75%;
+        outline: none;
+        --tw-shadow: none;
+        border: none;
     }
 </style>
 

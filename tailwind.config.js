@@ -9,7 +9,12 @@ export default {
       }
     },
     screens: {
+      'xxxxsm': '380px', 
+      'xxxsm': '600px',
+      'xxsm': '700px',
+      'xsm': '800px',
       'sm': '958px',
+      'smd': '1000px',
     }
   },
   plugins: [],
