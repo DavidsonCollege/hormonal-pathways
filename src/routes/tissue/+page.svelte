@@ -283,7 +283,7 @@
 
 <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700 z-[100]" />
 
-<div class="flex flex-col justify-center items-center scale-[80%] xsm:scale-[100%]">
+<div class="flex flex-col justify-center items-center">
     <div class="mt-[-80px] mb-5 z-[-1]">
         <TissueLegend />
     </div>
