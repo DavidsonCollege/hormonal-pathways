@@ -1,10 +1,6 @@
-Here's a draft for your GitHub repository's `README.md` based on the project materials and live project link:
-
----
-
 # Hormonal Pathways and Trait Expression Simulator 
 
-[Live Project](https://hormonal-pathways-e41a56ba4fc9.herokuapp.com/)
+[Live Project](https://experiments.colab.duke.edu:1000/)
 
 ## Overview
 
@@ -37,7 +33,6 @@ The simulator is based on the dynamic state variable model developed by Dr. Nico
 ## Tech Stack
 - **Frontend**: Svelte
 - **Backend**: Flask, Python
-- **Mathematical Modeling**: MATLAB
 
 ## Software Developers
 - **Karisma Lavana**
@@ -56,11 +51,25 @@ We extend our gratitude to:
 
 # Develop
 
-## Dependencies
+## 📦 Dependencies
 
 Install dependencies with `npm install` (or `pnpm install` or `yarn`)
 
-## Server
+## 🔐 Environment Variables
+
+Before running the application, make sure to set up your environment variables.
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Open the `.env` file and fill in the required values.
+
+> The `.env.example` file lists all the required environment variables with sample keys or empty values.  
+> Do not commit your `.env` file to version control as it may contain sensitive information.
+
+## 🖥️ Server
 
 Start a development server:
 
@@ -71,7 +80,42 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+## 🖥️ Hormone Model Flask Server
+
+### 0. Install Conda (if not already installed)
+
+Download and install Miniconda (recommended) from:  
+[https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
+
+Follow the instructions for your operating system.
+
+---
+
+### 1. Create a Conda Environment
+
+```bash
+conda create -n hp_api python=3.12
+```
+
+### 2. Activate the Environment
+
+```bash
+conda activate hp_api
+```
+
+### 3. Install Dependencies from `requirements.txt`
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Deactivate the Environment (when done)
+
+```bash
+conda deactivate
+```
+
+## 🏗️ Building
 
 To create a production version of your app:
 
@@ -83,11 +127,13 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-# Deploy
+# 🚀 Deploy
 
 ## SvelteKit
 
-Build SvelteKit image via Docker:
+1. Update the environment variables in the Docker file if ports have changed.
+
+2. Build SvelteKit image via Docker:
 
 ```bash
 docker build -t hormonal-pathways .
@@ -96,7 +142,7 @@ docker build -t hormonal-pathways .
 Run SvelteKit image in the background via Docker:
 
 ```bash
-docker run -d -p 3000:3000 hormonal-pathways
+docker run -d --restart unless-stopped -p 3000:3000 hormonal-pathways
 ```
 
 ## Flask
@@ -104,11 +150,11 @@ docker run -d -p 3000:3000 hormonal-pathways
 Build Flask image via Docker:
 
 ```bash
-docker build -t hp-api -f Dockerfile.api .
+docker build --build-arg OPENAI_API_KEY=$OPENAI_API_KEY -t hp-api -f Dockerfile.api .
 ```
 
 Run Flask image in the background via Docker:
 
 ```bash
-docker run -d -p 4000:4000 hp-api
+docker run -d --restart unless-stopped --env-file .env -p 4000:4000 hp-api
 ```

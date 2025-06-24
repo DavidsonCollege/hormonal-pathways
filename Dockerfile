@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Set environment variables
+ENV PUBLIC_HORMONE_MODEL_API_ENDPOINT=http://localhost:4000
+ENV PUBLIC_ROOT_URL=http://localhost:3000
+
 # Build the SvelteKit app
 RUN npm run build
 

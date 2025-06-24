@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code into the container
 COPY . .
 
+# Define build arguments
+ARG OPENAI_API_KEY
+
 # Expose the port that the Flask app will run on
 EXPOSE 4000
 
