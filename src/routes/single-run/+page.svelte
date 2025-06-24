@@ -307,7 +307,7 @@
         if (!showAIButtons) return;
         if ($chartDescriptions[number].length < 1){
             const imageData = exportChartBase64(chartInstance);
-            console.log('button works?')
+            //console.log('button works?')
             exportChartComponent.open(number, imageData)
         } else {
             // const chartMessage = $chartDescriptions[number]
