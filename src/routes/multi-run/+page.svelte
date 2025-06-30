@@ -211,7 +211,6 @@
         numRunsValue = 1;
     } else {
         currprefix = labelPrefix + " " + $variableName;
-        color = interpolateColor(startColor, endColor, factor);
     }
 
     const datasets = Array.from({ length: numRunsValue }, (_, runIndex) => {
@@ -221,6 +220,8 @@
         labelPrefix = currprefix + "=" + valueForLabel
         }
         if (!$isStatRun) {
+            const factor = runIndex / (numRunsValue - 1);
+            color = interpolateColor(startColor, endColor, factor);
             return {
                 label: `${labelPrefix}`,
                 data: data.map((point) => point[runIndex]),
